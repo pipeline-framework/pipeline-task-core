@@ -59,9 +59,7 @@ public abstract class PipelineTask {
      * Pipeline task developers can optionally add initialization logic here.
      */
     public void onInit() {
-
         log.info("Skipping onInit... No default implementation found!");
-
     }
 
     /**
@@ -73,14 +71,13 @@ public abstract class PipelineTask {
         this.executionContext.setTaskInput(taskInput);
         ValidationResult validationResult= new PipelineTaskValidator().validate(taskInput);
         this.executionContext.setValidationResult(validationResult);
-        return validationResult.isOutcome();
+        return validationResult.isValid();
     }
 
     /**
      * Determines if the task can be executed by implicitly evaluating policies
      */
     private final boolean canExecute() {
-
         PolicyResult policyResult= new PipelinePolicyEvaluator().evaluate(this.executionContext.getTaskInput());
         return policyResult.isExecute();
     }
@@ -100,14 +97,12 @@ public abstract class PipelineTask {
         new AsyncEventDispatcher().dispatch(completeEvent);
     }
 
-
     /**
      * Pipeline task developers can optionally add cleanup logic here.
      */
     public void onFinalize() {
         log.info("Skipping onFinalize... No default implementation found!");
     }
-
 
     private final void handleException(Exception exception) {
         throw new PipelineTaskException(TaskConstant.PIPELINE_TASK_EXCEPTION, exception);
