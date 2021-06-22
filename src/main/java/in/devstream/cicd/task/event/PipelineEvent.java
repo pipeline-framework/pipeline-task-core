@@ -1,16 +1,18 @@
 package in.devstream.cicd.task.event;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
+@SuperBuilder
+@ToString
 public abstract class PipelineEvent {
-
+    private String id;
+    private String appId;
+    private String appComponentName;
     private String createdAtUTC;
-    private String createdBy;
-
-
+    private String eventSource;
+    private EventType eventType;
+    private String name;
 }

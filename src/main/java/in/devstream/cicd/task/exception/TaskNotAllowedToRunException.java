@@ -19,4 +19,15 @@ public class TaskNotAllowedToRunException extends PipelineTaskException {
         super(message, cause);
         this.executionContext = executionContext;
     }
+
+    /**
+     * Construct an instance with the provided properties.
+     *
+     * @param executionContext task execution context.
+     * @param message          the message.
+     */
+    public TaskNotAllowedToRunException(ExecutionContext executionContext, String message) {
+        super(message, null);
+        this.executionContext = executionContext;
+    }
 }
