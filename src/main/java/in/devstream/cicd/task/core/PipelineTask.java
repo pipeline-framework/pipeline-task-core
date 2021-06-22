@@ -66,22 +66,23 @@ public abstract class PipelineTask {
 
     /**
      * Validates the task inputs using a schema
-     *
      * @return boolean value as outcome
      */
     private final boolean isValid() {
         TaskInput taskInput = new InputParser().parse(this.executionContext.getTaskArguments());
+        this.executionContext.setTaskInput(taskInput);
         ValidationResult validationResult= new PipelineTaskValidator().validate(taskInput);
+        this.executionContext.setValidationResult(validationResult);
         return validationResult.isOutcome();
     }
 
     /**
-     * Construct an instance with the provided properties.
+     * Determines if the task can be executed by implicitly evaluating policies
      */
     private final boolean canExecute() {
-        TaskInput taskInput = new InputParser().parse(args);
-        PolicyResult policyResult= new PipelinePolicyEvaluator().evaluate();
-        return policyResult.isOutcome();
+
+        PolicyResult policyResult= new PipelinePolicyEvaluator().evaluate(this.executionContext.getTaskInput());
+        return policyResult.isExecute();
     }
 
     /**
@@ -104,7 +105,7 @@ public abstract class PipelineTask {
      * Pipeline task developers can optionally add cleanup logic here.
      */
     public void onFinalize() {
-        log.info("default finalizing... no code execution...!");
+        log.info("Skipping onFinalize... No default implementation found!");
     }
 
 

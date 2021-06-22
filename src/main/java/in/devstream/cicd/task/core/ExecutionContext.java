@@ -15,8 +15,8 @@ public class ExecutionContext {
     private ApplicationArguments taskArguments;
     private ValidationResult validationResult;
     private PolicyResult policyResult;
+    private TaskInput taskInput;
 
     public void load(){
-
     }
 }

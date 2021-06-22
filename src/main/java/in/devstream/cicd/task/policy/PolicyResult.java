@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class PolicyResult {
-    private boolean outcome;
+    private boolean execute;
     private String message;
     private List<Result> results;
 }
